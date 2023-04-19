@@ -19,6 +19,8 @@ function Start()
     CreateMap();
     DrawMap();
     CreateObjects();
+    console.log(objects);
+    console.log('--------');
 }
 
 function Stop()
@@ -109,50 +111,33 @@ class Cell
 
             for(var i = 0; i < enemy.length; i++)
             {
-                if (this.y+1 == objects[enemy[i]].y && this.x == objects[enemy[i]].x)
-                {
-
-                    objects[enemy[i]].health -= this.damage;
-                    objects[enemy[i]+1].w = objects[enemy[i]].health;
-                }
-                if (this.y-1 == objects[enemy[i]].y && this.x == objects[enemy[i]].x)
+                if ((this.y+1 == objects[enemy[i]].y && this.x == objects[enemy[i]].x) ||
+                    (this.y-1 == objects[enemy[i]].y && this.x == objects[enemy[i]].x) ||
+                    (this.y == objects[enemy[i]].y && this.x+1 == objects[enemy[i]].x) ||
+                    (this.y == objects[enemy[i]].y && this.x-1 == objects[enemy[i]].x))
                 {
                     objects[enemy[i]].health -= this.damage;
                     objects[enemy[i]+1].w = objects[enemy[i]].health;
-                }
-                if (this.y == objects[enemy[i]].y && this.x+1 == objects[enemy[i]].x)
-                {
-                    objects[enemy[i]].health -= this.damage;
-                    objects[enemy[i]+1].w = objects[enemy[i]].health;
-                }
-                if (this.y == objects[enemy[i]].y && this.x-1 == objects[enemy[i]].x)
-                {
-                    objects[enemy[i]].health -= this.damage;
-                    objects[enemy[i]+1].w = objects[enemy[i]].health;
+                    if (objects[enemy[i]].health <= 0)
+                    {
+                        objects[enemy[i]+1].health -= 1;
+                    }
                 }
             }
         }
         else
         {
-            if (this.y+1 == objects[player].y && this.x == objects[player].x)
+            if ((this.y+1 == objects[player].y && this.x == objects[player].x) ||
+                (this.y-1 == objects[player].y && this.x == objects[player].x) ||
+                (this.y == objects[player].y && this.x+1 == objects[player].x) ||
+                (this.y == objects[player].y && this.x-1 == objects[player].x))
             {
                 objects[player].health -= this.damage;
                 objects[player+1].w = objects[player].health;
-            }
-            if (this.y-1 == objects[player].y && this.x == objects[player].x)
-            {
-                objects[player].health -= this.damage;
-                objects[player+1].w = objects[player].health;
-            }
-            if (this.y == objects[player].y && this.x+1 == objects[player].x)
-            {
-                objects[player].health -= this.damage;
-                objects[player+1].w = objects[player].health;
-            }
-            if (this.y == objects[player].y && this.x-1 == objects[player].x)
-            {
-                objects[player].health -= this.damage;
-                objects[player+1].w = objects[player].health;
+                if (objects[player].health <= 0)
+                {
+                    objects[player+1].health -= 1;
+                }
             }
         }
     }
@@ -161,25 +146,10 @@ class Cell
     {
         for(var i = 0; i < heal.length; i++)
         {
-            if (this.y+1 == objects[heal[i]].y && this.x == objects[heal[i]].x)
-            {
-                this.health += objects[heal[i]].damage;
-                objects[heal[i]].health -= 1;
-                objects[player+1].w = this.health;
-            }
-            if (this.y-1 == objects[heal[i]].y && this.x == objects[heal[i]].x)
-            {
-                this.health += objects[heal[i]].damage;
-                objects[heal[i]].health -= 1;
-                objects[player+1].w = this.health;
-            }
-            if (this.y == objects[heal[i]].y && this.x+1 == objects[heal[i]].x)
-            {
-                this.health += objects[heal[i]].damage;
-                objects[heal[i]].health -= 1;
-                objects[player+1].w = this.health;
-            }
-            if (this.y == objects[heal[i]].y && this.x-1 == objects[heal[i]].x)
+            if ((this.y+1 == objects[heal[i]].y && this.x == objects[heal[i]].x) ||
+                (this.y-1 == objects[heal[i]].y && this.x == objects[heal[i]].x) ||
+                (this.y == objects[heal[i]].y && this.x+1 == objects[heal[i]].x) ||
+                (this.y == objects[heal[i]].y && this.x-1 == objects[heal[i]].x))
             {
                 this.health += objects[heal[i]].damage;
                 objects[heal[i]].health -= 1;
@@ -189,28 +159,18 @@ class Cell
 
         for(var i = 0; i < sword.length; i++)
         {
-            if (this.y+1 == objects[sword[i]].y && this.x == objects[sword[i]].x)
-            {
-                this.damage += objects[sword[i]].damage;
-                objects[sword[i]].health -= 1;
-            }
-            if (this.y-1 == objects[sword[i]].y && this.x == objects[sword[i]].x)
-            {
-                this.damage += objects[sword[i]].damage;
-                objects[sword[i]].health -= 1;
-            }
-            if (this.y == objects[sword[i]].y && this.x+1 == objects[sword[i]].x)
-            {
-                this.damage += objects[sword[i]].damage;
-                objects[sword[i]].health -= 1;
-            }
-            if (this.y == objects[sword[i]].y && this.x-1 == objects[sword[i]].x)
+            if ((this.y+1 == objects[sword[i]].y && this.x == objects[sword[i]].x) ||
+                (this.y-1 == objects[sword[i]].y && this.x == objects[sword[i]].x) ||
+                (this.y == objects[sword[i]].y && this.x+1 == objects[sword[i]].x) ||
+                (this.y == objects[sword[i]].y && this.x-1 == objects[sword[i]].x))
             {
                 this.damage += objects[sword[i]].damage;
                 objects[sword[i]].health -= 1;
             }
         }
     }
+
+
 
 }
 
@@ -282,52 +242,13 @@ function Update() //Обновление игры
         {
             if (objects[i].property == 'tileP')
             {
-                elements = document.getElementsByClassName('tileP')
-                elements[0].remove();
-                elements = document.getElementsByClassName('healthP')
-                elements[0].remove();
-                objects.splice(i, 2);
+                objects[i].tile.remove();
+                objects[i+1].tile.remove();
                 Stop();
             }
-            if (objects[i].property == 'tileE')
-            {
-                elements = document.getElementsByClassName('tileE')
-                for (var j = 0; j < elements.length; j++)
-                {
-                    console.log(elements[j]);
-                    elements[j].remove();
-
-                }
-                elements = document.getElementsByClassName('healthE')
-                for (var j = 0; j < elements.length; j++)
-                {
-                    console.log(elements[j]);
-                    elements[j].remove();
-
-                }
-                objects.splice(i, 2);
-                Reorganization();
-            }
-            if (objects[i].property == 'tileHP')
-            {
-                elements = document.getElementsByClassName('tileHP')
-                for (var j = 0; j < elements.length; j++)
-                {
-                    elements[j].remove();
-                }
-                objects.splice(i, 1);
-                Reorganization();
-            }
-            if (objects[i].property == 'tileSW')
-            {
-                elements = document.getElementsByClassName('tileSW')
-                for (var j = 0; j < elements.length; j++)
-                {
-                    elements[j].remove();
-                }
-                objects.splice(i, 1);
-                Reorganization();
-            }
+            objects[i].tile.remove();
+            objects.splice(i, 1);
+            Reorganization();
         }
     }
 
