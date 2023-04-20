@@ -242,8 +242,9 @@ function Update() //Обновление игры
         {
             if (objects[i].property == 'tileP')
             {
-                objects[i].tile.remove();
-                objects[i+1].tile.remove();
+                objects[player].tile.remove();
+                elements = document.getElementsByClassName('healthP');
+                elements[0].remove();
                 Stop();
             }
             objects[i].tile.remove();
