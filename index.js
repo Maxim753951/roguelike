@@ -19,8 +19,6 @@ function Start()
     CreateMap();
     DrawMap();
     CreateObjects();
-    console.log(objects);
-    console.log('--------');
 }
 
 function Stop()
@@ -169,9 +167,6 @@ class Cell
             }
         }
     }
-
-
-
 }
 
 
